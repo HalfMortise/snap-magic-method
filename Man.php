@@ -48,16 +48,20 @@ class Man {
       if(is_integer($newManAge) < 0) {
          throw(new \InvalidArgumentException("not born yet"));
       }
-      if(is_integer($newManAge) < 18) {
+      if(is_integer($newManAge) < 19) {
          throw(new \RangeException("Hi, Caleb!"));
       }
-      if(is_integer($newManAge) > 118) {
+      if(is_integer($newManAge) > 119) {
          throw(new \RangeException("Captain @DeepDiveDylan"));
       }
       //end throws
    }
    //end mutator method
 
-
+   public function __toString() {
+      return "<td><td>" . $this->manName . "</td></td>" . $this->manAge . "</td></tr>";
+   }
 
 }
+$man = new Man("Jude", 20);
+$echo = $man;
