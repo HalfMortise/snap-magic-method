@@ -14,7 +14,7 @@ class Man {
       try {
          $this->setManName($newManName);
          $this->setManAge($newManAge);
-      } catch(\RangeException $exception) {
+      } catch(\InvalidArgumentException | \RangeException $exception) {
          //determine exception thrown
          $exceptionType = get_class($exception);
          throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -23,6 +23,41 @@ class Man {
    }
    //end constructor
 
-   //accessor method for
+   //accessor method for manName
+   public function getManName(): string {
+      return ($this->manName);
+   }
+
+   //mutator method for manName, <= 64 characters
+   public function setManName(string $newManName) : void {
+      $newManName = trim($newManName);
+      if(strlen($newManName) <= 64) {
+         throw(new \RangeException("name is too long"));
+      }
+      //end throw
+   }
+   //end mutator method for manName
+
+   //accessor method for manAge
+   public function getManAge(): int {
+      return ($this->manAge);
+   }
+
+   //mutator method for manAge
+   public function setManAge(int $newManAge) : void {
+      if(is_integer($newManAge) < 0) {
+         throw(new \InvalidArgumentException("not born yet"));
+      }
+      if(is_integer($newManAge) < 18) {
+         throw(new \RangeException("Hi, Caleb!"));
+      }
+      if(is_integer($newManAge) > 118) {
+         throw(new \RangeException("Captain @DeepDiveDylan"));
+      }
+      //end throws
+   }
+   //end mutator method
+
+
 
 }
